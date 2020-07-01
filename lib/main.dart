@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_editor_pro/image_editor_pro.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:shake/shake.dart';
+import 'package:vibration/vibration.dart';
 
 void main(){
   runApp(new MaterialApp(
@@ -36,6 +36,19 @@ class _LandingScreenState extends State<LandingScreen> {
     Navigator.of(context).pop();
   }
   //no mistakes grr
+  
+  @override
+  void initState() {
+  super.initState();
+  ShakeDetector detector = ShakeDetector.autoStart(onPhoneShake: () {
+  // Do stuff on phone shake
+    _showChoiceDialog(context);
+    Vibration.vibrate();
+
+  });
+  // To close: detector.stopListening();
+  // ShakeDetector.waitForStart() waits for user to call detector.startListening();
+  }
 
   Future<void> _showChoiceDialog(BuildContext context) {
     return showDialog(context: context,builder: (BuildContext context){
