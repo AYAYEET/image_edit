@@ -10,6 +10,10 @@ import 'package:flutter_launcher_icons/ios.dart';
 import 'package:flutter_launcher_icons/main.dart';
 import 'package:flutter_launcher_icons/utils.dart';
 import 'package:flutter_launcher_icons/xml_templates.dart';
+import 'package:photofilters/photofilters.dart';
+import 'package:image/image.dart' as imageLib;
+import 'package:path/path.dart' as Path;
+
 
 void main(){
   runApp(new MaterialApp(
@@ -27,18 +31,27 @@ class _LandingScreenState extends State<LandingScreen> {
 
   File imageFile;
   final picker = ImagePicker();
+  imageLib.Image _image;
+  String fileName;
+  List<Filter> filters = presetFiltersList;
 
   _openGallary(BuildContext context) async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     this.setState(() {
       imageFile = File(pickedFile.path);
+      fileName = Path.basename(imageFile.path);
+      _image = imageLib.decodeImage(imageFile.readAsBytesSync());
     });
     Navigator.of(context).pop();
+
+
   }
   _openCamera(BuildContext context) async{
     final pickedFile = await picker.getImage(source: ImageSource.camera);
     this.setState(() {
       imageFile = File(pickedFile.path);
+      fileName = Path.basename(imageFile.path);
+      _image = imageLib.decodeImage(imageFile.readAsBytesSync());
     });
     Navigator.of(context).pop();
   }
@@ -105,7 +118,17 @@ class _LandingScreenState extends State<LandingScreen> {
               _isImageView(),
               RaisedButton(onPressed: (){
                 _showChoiceDialog(context);
-              },child: Text("Select your mom"),)
+              },child: Text("Select your mom"),),
+              RaisedButton(onPressed: (){
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context)=> PhotoFilterSelector(
+                    image: _image,
+                    filters: filters,
+                    filename: fileName,
+                    loader: Center(child: CircularProgressIndicator()), title: Text("Filter"),
+                  ),
+                ));
+              },child: Text("Press"),)
             ],
           ),
         )
