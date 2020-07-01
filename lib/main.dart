@@ -68,7 +68,7 @@ class _LandingScreenState extends State<LandingScreen> {
     if (imageFile == null) {
       return Text("No Image Selected");
     } else {
-      Image.file(imageFile,width: 400,height: 400);
+      return Image.file(imageFile,width: 400,height: 400);
     }
   }
   @override
