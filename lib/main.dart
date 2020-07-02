@@ -55,7 +55,7 @@ class _LandingScreenState extends State<LandingScreen> {
     });
     Navigator.of(context).pop();
   }
-  //no mistakes grr
+  //no mistakes please
   
   @override
   void initState() {
