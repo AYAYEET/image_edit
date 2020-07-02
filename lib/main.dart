@@ -73,7 +73,7 @@ class _LandingScreenState extends State<LandingScreen> {
   Future<void> _showChoiceDialog(BuildContext context) {
     return showDialog(context: context,builder: (BuildContext context){
       return AlertDialog(
-        title: Text("bruh?"),
+        title: Text("How will you import an image?"),
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
@@ -108,7 +108,7 @@ class _LandingScreenState extends State<LandingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Image Editor UwU"),
+        title: Text("Image Editor"),
       ),
       body: Container(
         child: Center(
@@ -118,7 +118,7 @@ class _LandingScreenState extends State<LandingScreen> {
               _isImageView(),
               RaisedButton(onPressed: (){
                 _showChoiceDialog(context);
-              },child: Text("Select your mom"),),
+              },child: Text("Select Image or Shake to Select"),),
               RaisedButton(onPressed: (){
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context)=> PhotoFilterSelector(
@@ -128,7 +128,7 @@ class _LandingScreenState extends State<LandingScreen> {
                     loader: Center(child: CircularProgressIndicator()), title: Text("Filter"),
                   ),
                 ));
-              },child: Text("Press"),)
+              },child: Text("Edit!"),)
             ],
           ),
         )
